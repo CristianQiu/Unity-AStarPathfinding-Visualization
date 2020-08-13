@@ -7,47 +7,45 @@ public class GridEntity : MonoBehaviour
 {
     #region Public Attributes
 
+    public int firstTravelPointIndex = 0;
+    public Transform[] travelPoints;
+
     public float speed = 6.0f;
     public Transform target;
 
     #endregion
 
-    #region Private Attributes
-
+    private int currTravelPointIndex = 0;
     private List<GridNode> pathResult = new List<GridNode>(128);
+
+    private void Start()
+    {
+        currTravelPointIndex = firstTravelPointIndex;
+        currTravelPointIndex %= travelPoints.Length;
+
+        transform.position = travelPoints[currTravelPointIndex].position;
+    }
 
     private void Update()
     {
-        int up = 0;
-        int right = 0;
+        Transform currTravelPoint = travelPoints[currTravelPointIndex];
 
-        if (Input.GetKey(KeyCode.UpArrow))
+        Vector3 newPos = Vector3.MoveTowards(transform.position, currTravelPoint.position, speed * Time.deltaTime);
+        transform.position = newPos;
+
+        if (Vector3.Distance(newPos, currTravelPoint.position) <= speed * Time.deltaTime)
         {
-            up += 1;
+            currTravelPointIndex++;
+            currTravelPointIndex %= travelPoints.Length;
         }
 
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            up -= 1;
-        }
+        if (target == null)
+            return;
 
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            right += 1;
-        }
+        FindPath();
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            right -= 1;
-        }
-
-        transform.position += new Vector3(right, 0.0f, up).normalized * Time.deltaTime * speed;
-
-        if (up != 0 || right != 0)
-            FindPath();
-
+        // debug
         float sideFactor = Graphs.GridGraph.Instance.NodeRadius * 0.6f;
-
         Vector3 upFactor = Vector3.up * 0.04f;
 
         for (int i = 0; i < GridSearcher.OpenSet.Elements.Length; i++)
@@ -75,8 +73,8 @@ public class GridEntity : MonoBehaviour
             DebugRenderer.Instance.DrawQuad(v1, v2, v3, v4, new Color(1.0f, 147.0f / 255.0f, 61.0f / 255.0f, 1.0f), DebugRenderChannel.GridGraph);
         }
 
-        sideFactor *= 0.8f;
-        upFactor = Vector3.up * 0.09f;
+        sideFactor *= 0.9f;
+        upFactor = Vector3.up * 0.05f;
 
         for (int i = 0; i < pathResult.Count; i++)
         {
@@ -92,12 +90,6 @@ public class GridEntity : MonoBehaviour
 
     private void FindPath()
     {
-        UnityEngine.Profiling.Profiler.BeginSample("PATHFINDING");
-
         GridSearcher.FindPath(transform.position, target.position, pathResult);
-
-        UnityEngine.Profiling.Profiler.EndSample();
     }
-
-    #endregion
 }

@@ -9,6 +9,13 @@ namespace Graphs
     /// </summary>
     public sealed class GridGraph : MonoBehaviourSingleton<GridGraph>
     {
+        #region Public Attributes
+
+        [Range(0.0f, 0.4f)]
+        public float ObstacleProbability = 0.2f;
+
+        #endregion
+
         #region Private Attributes
 
         private const float MinNodeRadius = 0.1f;
@@ -77,7 +84,7 @@ namespace Graphs
 
         private void Update()
         {
-            BuildGridMesh();
+            //BuildGridMesh();
         }
 
         #endregion
@@ -99,7 +106,7 @@ namespace Graphs
 
             cam = FindObjectOfType<Camera>();
             Asserter.Assert(cam != null, "There is no camera in the scene!");
-            //gameObject.hideFlags = HideFlags.NotEditable;
+            gameObject.hideFlags = HideFlags.NotEditable;
 
             CreateGrid();
             BakeNeighbors();

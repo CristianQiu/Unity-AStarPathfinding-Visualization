@@ -92,8 +92,10 @@ namespace Graphs
         /// </summary>
         public void BakeObstacle()
         {
-            // this will generate sometimes not good grid layout, but just to test
-            Walkable = Random.Range(0, 10) <= 8;
+            float prob = GridGraph.Instance.ObstacleProbability;
+            prob = 1.0f - prob;
+
+            Walkable = Random.Range(0.0f, 1.0f) <= prob;
         }
 
         #endregion
