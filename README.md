@@ -1,4 +1,7 @@
-# Unity-code-samples
-This Unity project features personal code I did some time ago.
-It has an implementation of the A* algorithm.
-You can move the sphere in the scene and the path towards the cube will be displayed (if there's a path).
+# About
+This Unity project showcases A* pathfinding visualization.
+It uses a binary heap / priority queue for the open set and a hashset for the closed set, so it is "standard optimized".
+The implementation is fully single-threaded.
+
+# Preview
+![alt-text](./GithubImgs/TeaserGif.gif)
