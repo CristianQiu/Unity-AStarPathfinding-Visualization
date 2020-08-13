@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Shared;
+using System.Diagnostics;
 using UnityEngine;
-using Shared;
 
 namespace Graphs
 {
@@ -17,40 +17,47 @@ namespace Graphs
         private const int MaxRows = 50;
         private const int MaxCols = 50;
 
-        private static readonly float NodeDebugRadiusFactor = 0.95f;
-        private static readonly Vector3 NodeDebugConnectionsUp = Vector3.up * 0.1f;
+        private const float NodeDebugRadiusFactor = 0.8f;
+        private static readonly Vector3 NodeDebugConnectionsUp = Vector3.up * 0.01f;
 
         private ProceduralMesh nodesMeshInfo = null;
         private ProceduralMesh connectionsMeshInfo = null;
 
         [Header("Grid configuration"), Range(MinNodeRadius, MaxNodeRadius), SerializeField]
         private float nodeRadius = 0.5f;
+
         [Range(5, MaxRows), SerializeField]
         private int numRows = 50;
+
         [Range(5, MaxCols), SerializeField]
         private int numCols = 50;
+
         [SerializeField]
         private GridNeighboring neighboringType = GridNeighboring.FourNeighbors;
 
         [Header("Grid debug"), SerializeField]
         private Color walkableNodeColor = new Color(0.0f, 0.0f, 0.0f, 192.0f / 255.0f);
+
         [SerializeField]
         private Color unwalkableNodeColor = new Color(1.0f, 0.0f, 0.0f, 192.0f / 255.5f);
+
         [SerializeField]
         private Color connectionsColor = Color.red;
+
         [Range(0.01f, 0.1f), SerializeField]
         private float connectionsWidthFactor = 0.02f;
 
         private Camera cam = null;
 
-        // public Color occupiedByCharacterColor = new Color(111.0f / 255.0f, 0.0f, 192.0f / 255.5f, 192.0f / 255.5f);
+        // public Color occupiedByCharacterColor = new Color(111.0f / 255.0f, 0.0f, 192.0f / 255.5f,
+        // 192.0f / 255.5f);
 
-        // [Header("Opened and closed nodes")]
-        // public Color nodeInOpenSetColor = new Color(0.0f, 1.0f, 1.0f, 192.0f / 255.5f);
-        // public Color nodeInClosedSetColor = new Color(0.0f, 0.25f, 1.0f, 192.0f / 255.5f);
+        // [Header("Opened and closed nodes")] public Color nodeInOpenSetColor = new Color(0.0f,
+        // 1.0f, 1.0f, 192.0f / 255.5f); public Color nodeInClosedSetColor = new Color(0.0f, 0.25f,
+        // 1.0f, 192.0f / 255.5f);
 
-        // [Header("Characters path")]
-        // public Color charactersPathColor = new Color(39.0f / 255.0f, 167.0f / 255.0f, 0.0f, 0.25f);
+        // [Header("Characters path")] public Color charactersPathColor = new Color(39.0f / 255.0f,
+        // 167.0f / 255.0f, 0.0f, 0.25f);
 
         #endregion
 
@@ -58,7 +65,7 @@ namespace Graphs
 
         protected override bool DestroyOnLoad { get { return true; } }
 
-        public GridNode[, ] Nodes { get; private set; } = null;
+        public GridNode[,] Nodes { get; private set; } = null;
         public float NodeRadius { get { return nodeRadius; } }
         public float NodeDiameter { get { return nodeRadius * 2.0f; } }
         public GridNeighboring NeighboringType { get { return neighboringType; } }
@@ -78,8 +85,8 @@ namespace Graphs
         #region Initialization Methods
 
         /// <summary>
-        /// Called the very first time the singleton instance is accessed, and thus, lazily instanced.
-        /// This is automatically called in Awake() too.
+        /// Called the very first time the singleton instance is accessed, and thus, lazily
+        /// instanced. This is automatically called in Awake() too.
         /// </summary>
         /// <param name="force"></param>
         /// <returns></returns>
@@ -111,8 +118,6 @@ namespace Graphs
         {
             Nodes = new GridNode[numRows, numCols];
 
-            // TODO: Perhaps we want to take the transform position as the reference center
-            // get the bottom left node position from the grid
             Vector3 startPos = GetGridBotLeftNodePos();
             Vector3 currPos = startPos;
 
@@ -120,14 +125,8 @@ namespace Graphs
             {
                 for (int j = 0; j < numCols; j++)
                 {
-                    // TODO: Remove this
-                    bool walkable = Random.Range(0, 4) <= 2;
-
-                    //if (j == 15)
-                    //    walkable = i == 15;
-
                     // create the node and update the position
-                    Nodes[i, j] = new GridNode(i, j, currPos, walkable);
+                    Nodes[i, j] = new GridNode(i, j, currPos);
                     currPos.x += NodeDiameter;
                 }
 
@@ -138,7 +137,8 @@ namespace Graphs
         }
 
         /// <summary>
-        /// Get the bottom left corner of the grid, considering the grid is centered at the Vector3.zero world position.
+        /// Get the bottom left corner of the grid, considering the grid is centered at the
+        /// Vector3.zero world position.
         /// </summary>
         /// <returns></returns>
         private Vector3 GetGridBotLeftCornerPos()
@@ -148,8 +148,8 @@ namespace Graphs
             bool pairCols = (numCols % 2) == 0;
 
             // get the offsets to go to the bottom left corner of the grid
-            float xOffsetFromMid = NodeDiameter * Mathf.FloorToInt((float) (numCols / 2));
-            float zOffsetFromMid = NodeDiameter * Mathf.FloorToInt((float) (numRows / 2));
+            float xOffsetFromMid = NodeDiameter * Mathf.FloorToInt((float)((float)numCols / 2.0f));
+            float zOffsetFromMid = NodeDiameter * Mathf.FloorToInt((float)((float)numRows / 2.0f));
 
             // if the columns are not pair we must add half a node
             xOffsetFromMid = !pairCols ? (xOffsetFromMid + nodeRadius) : xOffsetFromMid;
@@ -192,7 +192,7 @@ namespace Graphs
                 for (int j = 0; j < numCols; j++)
                 {
                     GridNode n = Nodes[i, j];
-                    n.BakeObstacles();
+                    n.BakeObstacle();
                 }
             }
         }
@@ -218,7 +218,8 @@ namespace Graphs
         }
 
         /// <summary>
-        /// Get a node that is supposed to be at the given row and column. Returns null if it is out of bounds.
+        /// Get a node that is supposed to be at the given row and column. Returns null if it is out
+        /// of bounds.
         /// </summary>
         /// <param name="row"></param>
         /// <param name="col"></param>
@@ -248,7 +249,6 @@ namespace Graphs
             int numVerts = numQuads * 4;
             int numTris = numQuads * 2 * 3;
 
-            // create the dummies, for some odd reason if I change the parent the mesh is not displayed... so just hide it
             GameObject gridRenderer = new GameObject("Grid Renderer");
             gridRenderer.hideFlags = HideFlags.HideInHierarchy;
 
@@ -257,7 +257,8 @@ namespace Graphs
             GameObject gridConnections = new GameObject("Grid Connections Renderer");
             gridConnections.hideFlags = HideFlags.HideInHierarchy;
 
-            // let's consider that the maximum number of vertices is constrained by the eight neighboring type
+            // let's consider that the maximum number of vertices is constrained by the eight
+            // neighboring type
             numQuads = numRows * numCols * 8;
             numVerts = numQuads * 4;
             numTris = numQuads * 2 * 3;

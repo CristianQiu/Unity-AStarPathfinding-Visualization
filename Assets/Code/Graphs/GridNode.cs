@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using Shared;
+﻿using Shared;
+using UnityEngine;
 
 namespace Graphs
 {
     /// <summary>
-    /// The class that is used to represent the nodes in the GridGraph.
-    /// They are used to do pathfinding tasks with the GraphSearcher.
+    /// The class that is used to represent the nodes in the GridGraph. They are used to do
+    /// pathfinding tasks with the GraphSearcher.
     /// </summary>
     public class GridNode : IBinaryHeapable<GridNode>
     {
@@ -37,7 +37,7 @@ namespace Graphs
         /// <param name="col"></param>
         /// <param name="pos"></param>
         /// <param name="walkable"></param>
-        public GridNode(int row, int col, Vector3 pos, bool walkable)
+        public GridNode(int row, int col, Vector3 pos, bool walkable = true)
         {
             Row = row;
             Col = col;
@@ -60,7 +60,7 @@ namespace Graphs
             GridGraph gm = GridGraph.Instance;
 
             // initialize the neighbors array
-            Neighbors = new GridNode[(int) gm.NeighboringType];
+            Neighbors = new GridNode[(int)gm.NeighboringType];
 
             int counter = 0;
             bool fourNeighbors = gm.NeighboringType == GridNeighboring.FourNeighbors;
@@ -88,11 +88,12 @@ namespace Graphs
         }
 
         /// <summary>
-        /// TODO: Implementation
+        /// TODO: Real implementation
         /// </summary>
-        public void BakeObstacles()
+        public void BakeObstacle()
         {
-
+            // this will generate sometimes not good grid layout, but just to test
+            Walkable = Random.Range(0, 10) <= 8;
         }
 
         #endregion
@@ -100,7 +101,8 @@ namespace Graphs
         #region Binary Heap Methods
 
         /// <summary>
-        /// Used to get whether this node has priority over other node when being shift to the top of the heap.
+        /// Used to get whether this node has priority over other node when being shift to the top
+        /// of the heap.
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
@@ -113,7 +115,8 @@ namespace Graphs
         }
 
         /// <summary>
-        /// Used to get whether this node has priority over other nodewhen being shift to the bottom of the heap.
+        /// Used to get whether this node has priority over other nodewhen being shift to the bottom
+        /// of the heap.
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>

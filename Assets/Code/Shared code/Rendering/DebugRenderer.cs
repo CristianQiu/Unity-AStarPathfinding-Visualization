@@ -37,6 +37,7 @@ namespace Shared
         #region MonoBehaviour Methods
 
 #if DEBUG_RENDER
+
         private void Start()
         {
             Camera.onPostRender += PostRender;
@@ -46,6 +47,7 @@ namespace Shared
         {
             Camera.onPostRender -= PostRender;
         }
+
 #endif
 
         #endregion
@@ -53,8 +55,8 @@ namespace Shared
         #region Initialization Methods
 
         /// <summary>
-        /// Called the very first time the singleton instance is accessed, and thus, lazily instanced.
-        /// This is automatically called in Awake() too.
+        /// Called the very first time the singleton instance is accessed, and thus, lazily
+        /// instanced. This is automatically called in Awake() too.
         /// </summary>
         /// <param name="force"></param>
         /// <returns></returns>
@@ -216,7 +218,6 @@ namespace Shared
                 GL.Vertex(q.V4);
                 GL.Vertex(q.V2);
                 GL.Vertex(q.V1);
-
             }
 
             GL.End();
@@ -226,13 +227,19 @@ namespace Shared
 
         #region Callbacks
 
+        private Camera mainCam;
+
         /// <summary>
         /// Called right after the camera finishes rendering.
         /// </summary>
         /// <param name="cam"></param>
         private void PostRender(Camera cam)
         {
-            DoDebugRenderGL();
+            if (mainCam == null)
+                mainCam = FindObjectOfType<Camera>();
+
+            if (cam == mainCam)
+                DoDebugRenderGL();
         }
 
         #endregion

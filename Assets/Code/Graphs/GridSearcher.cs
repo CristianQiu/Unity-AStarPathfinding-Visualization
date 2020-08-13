@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Shared;
+using System.Collections.Generic;
 using UnityEngine;
-using Shared;
 
 namespace Graphs
 {
@@ -14,8 +14,10 @@ namespace Graphs
         public static readonly BinaryHeap<GridNode> OpenSet = new BinaryHeap<GridNode>(MaxHeapSize);
         public static readonly HashSet<GridNode> ClosedSet = new HashSet<GridNode>();
 
-        // the closer the relation (gCost / hCost) to 0, the more accurate, but less performant path. On the contrary, the higher, the less accurate and more greedy, but more performant
+        // the closer the relation (gCost / hCost) to 0, the more accurate, but less performant
+        // path. On the contrary, the higher, the less accurate and more greedy, but more performant
         public static int hCostMultiplier = 1;
+
         public static int gCostMultiplier = 1;
 
         #endregion
@@ -31,8 +33,8 @@ namespace Graphs
         #region Pathfinding Methods
 
         /// <summary>
-        /// Find the path from the given position to the end position and store it in the list passed as parameter.
-        /// The A* algorithm is used to find the path.
+        /// Find the path from the given position to the end position and store it in the list
+        /// passed as parameter. The A* algorithm is used to find the path.
         /// </summary>
         /// <param name="startPos"></param>
         /// <param name="endPos"></param>
@@ -43,17 +45,6 @@ namespace Graphs
             GridNode endNode = GridGraph.Instance.PosToNode(endPos);
 
             FindPath(startNode, endNode, intoResult);
-        }
-
-        /// <summary>
-        /// TODO: Implementation
-        /// </summary>
-        /// <param name="startPos"></param>
-        /// <param name="depth"></param>
-        /// <param name="intoResult"></param>
-        public static void FindNodesBFS(GridNode startPos, int depth, List<GridNode> intoResult)
-        {
-
         }
 
         /// <summary>
@@ -147,7 +138,7 @@ namespace Graphs
 
         #region Cost Methods
 
-        /* TODO: Cost functions are only taking into account the 2D space (positions in XZ).
+        /* Note: Cost functions are only taking into account the 2D space (positions in XZ).
         It may be interesting to add a 3D modifier that takes into account the Y height too.
         We are also lacking cost modifiers such as mud, water, etc, which may also be interesting.
         And finally, no smoothing techniques are used, which may become useful for some projects.*/

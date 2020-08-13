@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using Graphs;
 using Shared;
-using Graphs;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class GridEntity : MonoBehaviour
 {
@@ -46,9 +46,9 @@ public class GridEntity : MonoBehaviour
         if (up != 0 || right != 0)
             FindPath();
 
-        float sideFactor = Graphs.GridGraph.Instance.NodeRadius * 0.8f;
+        float sideFactor = Graphs.GridGraph.Instance.NodeRadius * 0.6f;
 
-        Vector3 upFactor = Vector3.up * 0.08f;
+        Vector3 upFactor = Vector3.up * 0.04f;
 
         for (int i = 0; i < GridSearcher.OpenSet.Elements.Length; i++)
         {
@@ -62,7 +62,7 @@ public class GridEntity : MonoBehaviour
             Vector3 v1 = n.Pos + upFactor + (Vector3.left - Vector3.forward) * sideFactor;
             Vector3 v3 = n.Pos + upFactor + (Vector3.left + Vector3.forward) * sideFactor;
 
-            DebugRenderer.Instance.DrawQuad(v1, v2, v3, v4, Color.black, DebugRenderChannel.GridGraph);
+            DebugRenderer.Instance.DrawQuad(v1, v2, v3, v4, new Color(90.0f / 255.0f, 176.0f / 255.0f, 1.0f, 1.0f), DebugRenderChannel.GridGraph);
         }
 
         foreach (GridNode n in GridSearcher.ClosedSet)
@@ -72,7 +72,7 @@ public class GridEntity : MonoBehaviour
             Vector3 v1 = n.Pos + upFactor + (Vector3.left - Vector3.forward) * sideFactor;
             Vector3 v3 = n.Pos + upFactor + (Vector3.left + Vector3.forward) * sideFactor;
 
-            DebugRenderer.Instance.DrawQuad(v1, v2, v3, v4, new Color(0.1f, 0.1f, 0.9f), DebugRenderChannel.GridGraph);
+            DebugRenderer.Instance.DrawQuad(v1, v2, v3, v4, new Color(1.0f, 147.0f / 255.0f, 61.0f / 255.0f, 1.0f), DebugRenderChannel.GridGraph);
         }
 
         sideFactor *= 0.8f;
@@ -86,7 +86,7 @@ public class GridEntity : MonoBehaviour
             Vector3 v1 = n.Pos + upFactor + (Vector3.left - Vector3.forward) * sideFactor;
             Vector3 v3 = n.Pos + upFactor + (Vector3.left + Vector3.forward) * sideFactor;
 
-            DebugRenderer.Instance.DrawQuad(v1, v2, v3, v4, Color.green, DebugRenderChannel.GridGraph);
+            DebugRenderer.Instance.DrawQuad(v1, v2, v3, v4, new Color(109.0f / 255.0f, 1.0f, 107.0f / 255.0f, 1.0f), DebugRenderChannel.GridGraph);
         }
     }
 
@@ -97,7 +97,6 @@ public class GridEntity : MonoBehaviour
         GridSearcher.FindPath(transform.position, target.position, pathResult);
 
         UnityEngine.Profiling.Profiler.EndSample();
-
     }
 
     #endregion
