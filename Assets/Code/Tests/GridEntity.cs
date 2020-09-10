@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GridEntity : MonoBehaviour
 {
-    #region Public Attributes
+    #region Attributes
 
     public int firstTravelPointIndex = 0;
     public Transform[] travelPoints;
@@ -13,10 +13,12 @@ public class GridEntity : MonoBehaviour
     public float speed = 6.0f;
     public Transform target;
 
-    #endregion
-
     private int currTravelPointIndex = 0;
     private List<GridNode> pathResult = new List<GridNode>(128);
+
+    #endregion
+
+    #region Methods
 
     private void Start()
     {
@@ -42,9 +44,9 @@ public class GridEntity : MonoBehaviour
         if (target == null)
             return;
 
-        FindPath();
+        GridSearcher.FindPath(transform.position, target.position, pathResult);
 
-        // debug
+        // Debug
         float sideFactor = Graphs.GridGraph.Instance.NodeRadius * 0.6f;
         Vector3 upFactor = Vector3.up * 0.04f;
 
@@ -88,8 +90,5 @@ public class GridEntity : MonoBehaviour
         }
     }
 
-    private void FindPath()
-    {
-        GridSearcher.FindPath(transform.position, target.position, pathResult);
-    }
+    #endregion
 }

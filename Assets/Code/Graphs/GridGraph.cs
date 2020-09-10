@@ -56,16 +56,6 @@ namespace Graphs
 
         private Camera cam = null;
 
-        // public Color occupiedByCharacterColor = new Color(111.0f / 255.0f, 0.0f, 192.0f / 255.5f,
-        // 192.0f / 255.5f);
-
-        // [Header("Opened and closed nodes")] public Color nodeInOpenSetColor = new Color(0.0f,
-        // 1.0f, 1.0f, 192.0f / 255.5f); public Color nodeInClosedSetColor = new Color(0.0f, 0.25f,
-        // 1.0f, 192.0f / 255.5f);
-
-        // [Header("Characters path")] public Color charactersPathColor = new Color(39.0f / 255.0f,
-        // 167.0f / 255.0f, 0.0f, 0.25f);
-
         #endregion
 
         #region Properties
@@ -77,15 +67,6 @@ namespace Graphs
         public float NodeDiameter { get { return nodeRadius * 2.0f; } }
         public GridNeighboring NeighboringType { get { return neighboringType; } }
         public float NodeDebugRadius { get { return nodeRadius * NodeDebugRadiusFactor; } }
-
-        #endregion
-
-        #region MonoBehaviour Methods
-
-        private void Update()
-        {
-            //BuildGridMesh();
-        }
 
         #endregion
 

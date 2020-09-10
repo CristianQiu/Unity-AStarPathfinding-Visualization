@@ -21,17 +21,6 @@
         bool Init(bool force);
     }
 
-    /// <summary>
-    /// Interface that classes that can be reset can implement.
-    /// </summary>
-    public interface IResettable
-    {
-        /// <summary>
-        /// Reset the object.
-        /// </summary>
-        void Reset();
-    }
-
     #endregion
 
     #region Binary Heap
@@ -43,47 +32,35 @@
     public interface IBinaryHeapable<T>
     {
         /// <summary>
-        /// The index at which the element is placed in the heap. It is set to -1 when it is not in the heap.
+        /// The index at which the element is placed in the heap. It is set to -1 when it is not in
+        /// the heap.
         /// </summary>
         /// <value></value>
         int HeapIndex { get; set; }
 
         /// <summary>
-        /// The number of item that has been added to the heap since it started operating.
-        /// It is set to 0 every time the object is extracted from the binary heap.
-        /// The internal countdown of the heap is reset when it is cleared.
+        /// The number of item that has been added to the heap since it started operating. It is set
+        /// to 0 every time the object is extracted from the binary heap. The internal countdown of
+        /// the heap is reset when it is cleared.
         /// </summary>
         /// <value></value>
         ulong NumHeapItem { get; set; }
 
         /// <summary>
-        /// Used to get whether this object has priority over other object when being shift to the top of the heap.
-        /// This can be used to store elements in ascendant or descendant order.
+        /// Used to get whether this object has priority over other object when being shift to the
+        /// top of the heap. This can be used to store elements in ascendant or descendant order.
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
         bool HasPriorityToShiftUp(T other);
 
         /// <summary>
-        /// Used to get whether this object has priority over other object when being shift to the bottom of the heap.
-        /// This can be used to store elements in ascendant or descendant order.
+        /// Used to get whether this object has priority over other object when being shift to the
+        /// bottom of the heap. This can be used to store elements in ascendant or descendant order.
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
         bool HasPriorityToShiftDown(T other);
-    }
-
-    #endregion
-
-    #region Pooling
-
-    /// <summary>
-    /// Interface that classes that can be pooled must implement.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface IPoolable<T> : IInitializable, IResettable where T : class
-    {
-
     }
 
     #endregion
