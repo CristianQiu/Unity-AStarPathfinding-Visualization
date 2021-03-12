@@ -1,11 +1,12 @@
 ﻿namespace Shared
 {
     /// <summary>
-    /// A binary heap used to implement a priority queue where objects are ordered depending on certain values.
-    /// Here is a good overview of the datastructure, as well as the time complexity of its operations: http://www.growingwiththeweb.com/data-structures/binary-heap/overview/
+    /// A binary heap used to implement a priority queue where objects are ordered depending on
+    /// certain values. Here is a good overview of the datastructure, as well as the time complexity
+    /// of its operations: http://www.growingwiththeweb.com/data-structures/binary-heap/overview/
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BinaryHeap<T> where T : IBinaryHeapable<T>
+    public class BinaryHeap<T> where T : class, IBinaryHeapable<T>
     {
         #region Public Attributes
 
@@ -35,7 +36,6 @@
         /// </summary>
         public BinaryHeap() : this(DefaultCapacity)
         {
-
         }
 
         /// <summary>
@@ -100,7 +100,8 @@
             if (Count > 0)
                 ShiftDown(Elements[0]);
 
-            // invalidate the heap index from what we extracted, so that we know it is no longer inside it
+            // invalidate the heap index from what we extracted, so that we know it is no longer
+            // inside it
             min.HeapIndex = InvalidIndex;
             min.NumHeapItem = 0;
 
@@ -108,8 +109,8 @@
         }
 
         /// <summary>
-        /// Update an element that has had its priority changed, and requires to be reordered.
-        /// It must be manually called every time said value is changed.
+        /// Update an element that has had its priority changed, and requires to be reordered. It
+        /// must be manually called every time said value is changed.
         /// </summary>
         /// <param name="element"></param>
         public void UpdateElementWithChangedVal(T element)
@@ -128,7 +129,8 @@
         {
             for (int i = 0; i < Count; i++)
             {
-                // set the index back to invalid so that we can look for it in the object T to know that it is no longer inside the heap
+                // set the index back to invalid so that we can look for it in the object T to know
+                // that it is no longer inside the heap
                 Elements[i].HeapIndex = InvalidIndex;
                 Elements[i].NumHeapItem = 0;
                 Elements[i] = default;
@@ -144,7 +146,8 @@
         #region Useful Methods
 
         /// <summary>
-        /// Double the capacity of the elements in case we run out of space, just like the generic list does.
+        /// Double the capacity of the elements in case we run out of space, just like the generic
+        /// list does.
         /// </summary>
         private void DoubleElementsCapacity()
         {
@@ -190,8 +193,8 @@
             if (right != default)
                 mostPriority = right.HasPriorityToShiftDown(mostPriority) ? right : mostPriority;
 
-            // kind of hacky but it will work, since operator != is not allowed and no two elements in the heap can have the same heap index
-            // swap with it if any of the children has priority
+            // kind of hacky but it will work, since operator != is not allowed and no two elements
+            // in the heap can have the same heap index swap with it if any of the children has priority
             if (mostPriority.HeapIndex != element.HeapIndex)
             {
                 SwapElements(element, mostPriority);

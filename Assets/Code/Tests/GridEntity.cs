@@ -2,7 +2,11 @@
 using Shared;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
+/// <summary>
+/// Class to do a simple quick test for pathfinding.
+/// </summary>
 public class GridEntity : MonoBehaviour
 {
     #region Attributes
@@ -15,6 +19,8 @@ public class GridEntity : MonoBehaviour
 
     private int currTravelPointIndex = 0;
     private List<GridNode> pathResult = new List<GridNode>(128);
+
+    private CustomSampler sampler = CustomSampler.Create("Pathfinding");
 
     #endregion
 
@@ -44,15 +50,19 @@ public class GridEntity : MonoBehaviour
         if (target == null)
             return;
 
-        GridSearcher.FindPath(transform.position, target.position, pathResult);
+        sampler.Begin();
+
+        Pathfinder.FindPath(transform.position, target.position, pathResult);
+
+        sampler.End();
 
         // Debug
-        float sideFactor = Graphs.GridGraph.Instance.NodeRadius * 0.6f;
+        float sideFactor = Graphs.GridMaster.Instance.NodeRadius * 0.6f;
         Vector3 upFactor = Vector3.up * 0.04f;
 
-        for (int i = 0; i < GridSearcher.OpenSet.Elements.Length; i++)
+        for (int i = 0; i < Pathfinder.OpenSet.Elements.Length; i++)
         {
-            GridNode n = GridSearcher.OpenSet.Elements[i];
+            GridNode n = Pathfinder.OpenSet.Elements[i];
 
             if (n == null)
                 continue;
@@ -65,7 +75,7 @@ public class GridEntity : MonoBehaviour
             DebugRenderer.Instance.DrawQuad(v1, v2, v3, v4, new Color(90.0f / 255.0f, 176.0f / 255.0f, 1.0f, 1.0f), DebugRenderChannel.GridGraph);
         }
 
-        foreach (GridNode n in GridSearcher.ClosedSet)
+        foreach (GridNode n in Pathfinder.ClosedSet)
         {
             Vector3 v4 = n.Pos + upFactor + (Vector3.right + Vector3.forward) * sideFactor;
             Vector3 v2 = n.Pos + upFactor + (Vector3.right - Vector3.forward) * sideFactor;

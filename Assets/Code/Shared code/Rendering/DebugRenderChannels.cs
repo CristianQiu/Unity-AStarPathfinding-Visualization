@@ -4,13 +4,14 @@ using System.Diagnostics;
 namespace Shared
 {
     /// <summary>
-    /// Class to hold the different debug render channels that can be activated and deactivated to show or hide the debugging.
+    /// Class to hold the different debug render channels that can be activated and deactivated to
+    /// show or hide the debugging.
     /// </summary>
     public static class DebugRenderChannels
     {
         #region Private Attributes
 
-        private static readonly List<bool> ChannelsActiveState = new List<bool>((int) DebugRenderChannel.Count);
+        private static readonly List<bool> ChannelsActiveState = new List<bool>((int)DebugRenderChannel.Count);
 
         #endregion
 
@@ -22,7 +23,7 @@ namespace Shared
         static DebugRenderChannels()
         {
             // register all the channels enabled by default
-            for (int i = 0; i < (int) DebugRenderChannel.Count; i++)
+            for (int i = 0; i < (int)DebugRenderChannel.Count; i++)
                 ChannelsActiveState.Add(true);
         }
 
@@ -37,7 +38,7 @@ namespace Shared
         /// <returns></returns>
         public static bool IsChannelActive(DebugRenderChannel channel)
         {
-            return ChannelsActiveState[(int) channel];
+            return ChannelsActiveState[(int)channel];
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace Shared
         [Conditional("DEBUG_RENDER")]
         public static void SetChannelEnabledState(DebugRenderChannel channel, bool on)
         {
-            ChannelsActiveState[(int) channel] = on;
+            ChannelsActiveState[(int)channel] = on;
         }
 
         #endregion

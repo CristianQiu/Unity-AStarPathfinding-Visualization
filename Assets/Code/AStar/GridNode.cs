@@ -4,8 +4,7 @@ using UnityEngine;
 namespace Graphs
 {
     /// <summary>
-    /// The class that is used to represent the nodes in the GridGraph. They are used to do
-    /// pathfinding tasks with the GraphSearcher.
+    /// The class that is used to represent the nodes in the grid. They are used to do pathfinding tasks.
     /// </summary>
     public class GridNode : IBinaryHeapable<GridNode>
     {
@@ -57,7 +56,7 @@ namespace Graphs
             int i = Row;
             int j = Col;
 
-            GridGraph gm = GridGraph.Instance;
+            GridMaster gm = GridMaster.Instance;
 
             // initialize the neighbors array
             Neighbors = new GridNode[(int)gm.NeighboringType];
@@ -69,7 +68,7 @@ namespace Graphs
             {
                 for (int x = j - 1; x <= j + 1; x++)
                 {
-                    GridNode neighbor = GridGraph.Instance.GetNodeAt(y, x);
+                    GridNode neighbor = GridMaster.Instance.GetNodeAt(y, x);
                     bool skip = neighbor == null || neighbor == this;
 
                     if (skip)
@@ -92,7 +91,7 @@ namespace Graphs
         /// </summary>
         public void BakeObstacle()
         {
-            float prob = GridGraph.Instance.ObstacleProbability;
+            float prob = GridMaster.Instance.ObstacleProbability;
             prob = 1.0f - prob;
 
             Walkable = Random.Range(0.0f, 1.0f) <= prob;

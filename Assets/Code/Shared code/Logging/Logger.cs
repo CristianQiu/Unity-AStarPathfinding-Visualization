@@ -32,7 +32,7 @@ namespace Shared
         private static void Log(string msg, LogChannel channel, LogLvl level)
         {
             // cease log that we do not want
-            if ((int) level < (int) minimumLvl || !LogChannels.IsChannelActive(channel))
+            if ((int)level < (int)minimumLvl || !LogChannels.IsChannelActive(channel))
                 return;
 
             string channelStr = LogChannels.GetChannelName(channel);
@@ -43,18 +43,23 @@ namespace Shared
                 case LogLvl.Info:
                     Debug.Log(finalMsg);
                     break;
+
                 case LogLvl.Warning:
                     Debug.LogWarning(finalMsg);
                     break;
+
                 case LogLvl.Error:
                     Debug.LogError(finalMsg);
                     break;
+
                 case LogLvl.Assertion:
                     Debug.LogAssertion(finalMsg);
                     break;
+
                 case LogLvl.Exception:
                     // TODO: Implementation
                     break;
+
                 default:
                     Debug.LogFormat("The log level {0} does not exist", level.ToString());
                     break;

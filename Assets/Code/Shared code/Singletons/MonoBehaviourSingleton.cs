@@ -41,7 +41,8 @@ namespace Shared
                     {
                         instance = instances[0];
 
-                        // deleted script duplicates will be restored once the game stops, let's show a warning before
+                        // deleted script duplicates will be restored once the game stops, let's
+                        // show a warning before
                         if (length > 1)
                             Logger.LogWarningFormat("MonoBehaviourSingleton {0} has several instanced scripts across the scene and some of them have been deleted. It is HIGHLY recommended that you only leave one instance of the script you want to use.", name);
 
@@ -86,8 +87,8 @@ namespace Shared
         #region Initialization Methods
 
         /// <summary>
-        /// Called the very first time the singleton instance is accessed, and thus, lazily instanced.
-        /// This is automatically called in Awake() too.
+        /// Called the very first time the singleton instance is accessed, and thus, lazily
+        /// instanced. This is automatically called in Awake() too.
         /// </summary>
         /// <param name="force"></param>
         /// <returns></returns>

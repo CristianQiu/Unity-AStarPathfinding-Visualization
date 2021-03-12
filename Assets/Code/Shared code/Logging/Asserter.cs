@@ -10,7 +10,8 @@ namespace Shared
         #region Methods
 
         /// <summary>
-        /// Assert that a certain condition is met and send a message to Unity's console if the condition is not met.
+        /// Assert that a certain condition is met and send a message to Unity's console if the
+        /// condition is not met.
         /// </summary>
         /// <param name="condition"></param>
         /// <param name="onFailMsg"></param>
@@ -22,7 +23,8 @@ namespace Shared
         }
 
         /// <summary>
-        /// Assert that a certain condition is met and send a formatted message to Unity's console if the condition is not met.
+        /// Assert that a certain condition is met and send a formatted message to Unity's console
+        /// if the condition is not met.
         /// </summary>
         /// <param name="condition"></param>
         /// <param name="onFailMsg"></param>

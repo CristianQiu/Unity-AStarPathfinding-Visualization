@@ -3,7 +3,7 @@
     #region Grid Neighbors
 
     /// <summary>
-    /// The possible different types of neighboring for the nodes of the grid graph.
+    /// The possible different types of neighboring for the nodes of the grid.
     /// </summary>
     public enum GridNeighboring
     {

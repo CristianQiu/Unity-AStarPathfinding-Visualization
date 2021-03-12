@@ -5,9 +5,9 @@ using UnityEngine;
 namespace Graphs
 {
     /// <summary>
-    /// The main class that is used to store the nodes as a graph and useful parameters for their creation.
+    /// The main class that is used to store the nodes and useful parameters for their creation.
     /// </summary>
-    public sealed class GridGraph : MonoBehaviourSingleton<GridGraph>
+    public sealed class GridMaster : MonoBehaviourSingleton<GridMaster>
     {
         #region Public Attributes
 

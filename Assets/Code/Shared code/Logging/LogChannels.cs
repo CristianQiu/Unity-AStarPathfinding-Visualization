@@ -4,14 +4,15 @@ using System.Diagnostics;
 namespace Shared
 {
     /// <summary>
-    /// Class to hold the different log channels that can be activated and deactivated to show or hide the debugging.
+    /// Class to hold the different log channels that can be activated and deactivated to show or
+    /// hide the debugging.
     /// </summary>
     public static class LogChannels
     {
         #region Private Attributes
 
-        private static readonly List<string> Channels = new List<string>((int) LogChannel.Count);
-        private static readonly List<bool> ChannelsActiveState = new List<bool>((int) LogChannel.Count);
+        private static readonly List<string> Channels = new List<string>((int)LogChannel.Count);
+        private static readonly List<bool> ChannelsActiveState = new List<bool>((int)LogChannel.Count);
 
         #endregion
 
@@ -23,11 +24,11 @@ namespace Shared
         static LogChannels()
         {
             // initialize the log channels strings
-            for (int i = 0; i < (int) LogChannel.Count; i++)
-                Channels.Add(((LogChannel) i).ToString());
+            for (int i = 0; i < (int)LogChannel.Count; i++)
+                Channels.Add(((LogChannel)i).ToString());
 
             // they are active by default
-            for (int i = 0; i < (int) LogChannel.Count; i++)
+            for (int i = 0; i < (int)LogChannel.Count; i++)
                 ChannelsActiveState.Add(true);
         }
 
@@ -42,7 +43,7 @@ namespace Shared
         /// <returns></returns>
         public static string GetChannelName(LogChannel channel)
         {
-            return LogChannels.Channels[(int) channel];
+            return LogChannels.Channels[(int)channel];
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Shared
         /// <returns></returns>
         public static bool IsChannelActive(LogChannel channel)
         {
-            return ChannelsActiveState[(int) channel];
+            return ChannelsActiveState[(int)channel];
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace Shared
         [Conditional("DEBUG_LOG")]
         public static void SetChannelEnabledState(LogChannel channel, bool on)
         {
-            ChannelsActiveState[(int) channel] = on;
+            ChannelsActiveState[(int)channel] = on;
         }
 
         #endregion

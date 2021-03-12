@@ -57,7 +57,8 @@ namespace Shared
         #region Methods
 
         /// <summary>
-        /// Set the vertices, triangles and colors of the mesh. Call this when you have changed any of those and want to see the changes.
+        /// Set the vertices, triangles and colors of the mesh. Call this when you have changed any
+        /// of those and want to see the changes.
         /// </summary>
         public void SetMesh()
         {

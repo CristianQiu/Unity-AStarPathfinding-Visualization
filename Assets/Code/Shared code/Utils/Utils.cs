@@ -11,25 +11,15 @@ namespace Shared
         #region Transform Methods
 
         /// <summary>
-        /// Reset a Transform to local position Vector3.zero, local rotation Quaternion.identity and local scale to Vector3.zero.
+        /// Reset a Transform to local position Vector3.zero, local rotation Quaternion.identity and
+        /// local scale to Vector3.zero.
         /// </summary>
         /// <param name="t"></param>
         public static void ResetTransformLocal(Transform t)
         {
             t.localPosition = Vector3.zero;
             t.localRotation = Quaternion.identity;
-            t.localScale = Vector3.zero;
-        }
-
-        /// <summary>
-        /// Reset a Transform to global position Vector3.zero, global rotation Quaternion.identity and local scale to Vector3.zero.
-        /// </summary>
-        /// <param name="t"></param>
-        public static void ResetTransformGlobal(Transform t)
-        {
-            t.position = Vector3.zero;
-            t.rotation = Quaternion.identity;
-            t.localScale = Vector3.zero;
+            t.localScale = Vector3.one;
         }
 
         #endregion
@@ -47,13 +37,13 @@ namespace Shared
             Material debugMat = new Material(shader);
 
             // set blend modes to allow transparency
-            debugMat.SetInt("_SrcBlend", (int) BlendMode.SrcAlpha);
-            debugMat.SetInt("_DstBlend", (int) BlendMode.OneMinusSrcAlpha);
+            debugMat.SetInt("_SrcBlend", (int)BlendMode.SrcAlpha);
+            debugMat.SetInt("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
 
             // turn on back culling, turn on depth writes and depth test
-            debugMat.SetInt("_Cull", (int) CullMode.Back);
+            debugMat.SetInt("_Cull", (int)CullMode.Back);
             debugMat.SetInt("_ZWrite", 1);
-            debugMat.SetInt("_ZTest", (int) CompareFunction.LessEqual);
+            debugMat.SetInt("_ZTest", (int)CompareFunction.LessEqual);
 
             return debugMat;
         }
@@ -63,7 +53,8 @@ namespace Shared
         #region Destroy Methods
 
         /// <summary>
-        /// Choose whether to use MonoBehaviour's Destroy or DestroyImmediate depending on if the application is playing or not.
+        /// Choose whether to use MonoBehaviour's Destroy or DestroyImmediate depending on if the
+        /// application is playing or not.
         /// </summary>
         /// <param name="o"></param>
         public static void DestroyProper(Object o)

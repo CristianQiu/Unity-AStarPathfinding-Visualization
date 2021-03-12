@@ -5,9 +5,9 @@ using UnityEngine;
 namespace Graphs
 {
     /// <summary>
-    /// The class used to do graph search tasks such as pathfinding.
+    /// The class used to do pathfinding.
     /// </summary>
-    public static class GridSearcher
+    public static class Pathfinder
     {
         #region Public Attributes
 
@@ -41,8 +41,8 @@ namespace Graphs
         /// <param name="intoResult"></param>
         public static void FindPath(Vector3 startPos, Vector3 endPos, List<GridNode> intoResult)
         {
-            GridNode startNode = GridGraph.Instance.PosToNode(startPos);
-            GridNode endNode = GridGraph.Instance.PosToNode(endPos);
+            GridNode startNode = GridMaster.Instance.PosToNode(startPos);
+            GridNode endNode = GridMaster.Instance.PosToNode(endPos);
 
             FindPath(startNode, endNode, intoResult);
         }
@@ -162,7 +162,7 @@ namespace Graphs
 
             int h = 0;
 
-            if (GridGraph.Instance.NeighboringType == GridNeighboring.EightNeighbors)
+            if (GridMaster.Instance.NeighboringType == GridNeighboring.EightNeighbors)
             {
                 // diagonal distance
                 int max = Mathf.Max(rowOffset, colOffset);
