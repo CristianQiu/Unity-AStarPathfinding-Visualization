@@ -127,7 +127,7 @@
         /// </summary>
         public void Clear()
         {
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < Count; ++i)
             {
                 // set the index back to invalid so that we can look for it in the object T to know
                 // that it is no longer inside the heap

@@ -64,9 +64,9 @@ namespace Graphs
             int counter = 0;
             bool fourNeighbors = gm.NeighboringType == GridNeighboring.FourNeighbors;
 
-            for (int y = i - 1; y <= i + 1; y++)
+            for (int y = i - 1; y <= i + 1; ++y)
             {
-                for (int x = j - 1; x <= j + 1; x++)
+                for (int x = j - 1; x <= j + 1; ++x)
                 {
                     GridNode neighbor = GridMaster.Instance.GetNodeAt(y, x);
                     bool skip = neighbor == null || neighbor == this;

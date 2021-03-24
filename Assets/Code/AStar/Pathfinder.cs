@@ -82,7 +82,7 @@ namespace Graphs
                 }
 
                 // expand the current node neighbors
-                for (int i = 0; i < currNode.Neighbors.Length; i++)
+                for (int i = 0; i < currNode.Neighbors.Length; ++i)
                 {
                     GridNode neighbor = currNode.Neighbors[i];
 

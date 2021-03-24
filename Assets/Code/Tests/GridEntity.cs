@@ -60,7 +60,7 @@ public class GridEntity : MonoBehaviour
         float sideFactor = Graphs.GridMaster.Instance.NodeRadius * 0.6f;
         Vector3 upFactor = Vector3.up * 0.04f;
 
-        for (int i = 0; i < Pathfinder.OpenSet.Elements.Length; i++)
+        for (int i = 0; i < Pathfinder.OpenSet.Elements.Length; ++i)
         {
             GridNode n = Pathfinder.OpenSet.Elements[i];
 
@@ -88,7 +88,7 @@ public class GridEntity : MonoBehaviour
         sideFactor *= 0.9f;
         upFactor = Vector3.up * 0.05f;
 
-        for (int i = 0; i < pathResult.Count; i++)
+        for (int i = 0; i < pathResult.Count; ++i)
         {
             GridNode n = pathResult[i];
             Vector3 v4 = n.Pos + upFactor + (Vector3.right + Vector3.forward) * sideFactor;

@@ -23,7 +23,7 @@ namespace Shared
         static DebugRenderChannels()
         {
             // register all the channels enabled by default
-            for (int i = 0; i < (int)DebugRenderChannel.Count; i++)
+            for (int i = 0; i < (int)DebugRenderChannel.Count; ++i)
                 ChannelsActiveState.Add(true);
         }
 

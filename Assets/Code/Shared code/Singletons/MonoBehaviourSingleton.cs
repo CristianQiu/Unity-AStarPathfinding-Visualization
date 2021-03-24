@@ -47,7 +47,7 @@ namespace Shared
                             Logger.LogWarningFormat("MonoBehaviourSingleton {0} has several instanced scripts across the scene and some of them have been deleted. It is HIGHLY recommended that you only leave one instance of the script you want to use.", name);
 
                         // now delete any duplicate
-                        for (int i = 1; i < length; i++)
+                        for (int i = 1; i < length; ++i)
                         {
                             T inst = instances[i];
                             Logger.LogWarningFormat("Destroying MonoBehaviourSingleton {0} duplicate...", inst.name);

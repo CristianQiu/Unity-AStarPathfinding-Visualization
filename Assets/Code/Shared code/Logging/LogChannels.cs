@@ -24,11 +24,11 @@ namespace Shared
         static LogChannels()
         {
             // initialize the log channels strings
-            for (int i = 0; i < (int)LogChannel.Count; i++)
+            for (int i = 0; i < (int)LogChannel.Count; ++i)
                 Channels.Add(((LogChannel)i).ToString());
 
             // they are active by default
-            for (int i = 0; i < (int)LogChannel.Count; i++)
+            for (int i = 0; i < (int)LogChannel.Count; ++i)
                 ChannelsActiveState.Add(true);
         }
 

@@ -109,9 +109,9 @@ namespace Graphs
             Vector3 startPos = GetGridBotLeftNodePos();
             Vector3 currPos = startPos;
 
-            for (int i = 0; i < numRows; i++)
+            for (int i = 0; i < numRows; ++i)
             {
-                for (int j = 0; j < numCols; j++)
+                for (int j = 0; j < numCols; ++j)
                 {
                     // create the node and update the position
                     Nodes[i, j] = new GridNode(i, j, currPos);
@@ -160,9 +160,9 @@ namespace Graphs
         /// </summary>
         private void BakeNeighbors()
         {
-            for (int i = 0; i < numRows; i++)
+            for (int i = 0; i < numRows; ++i)
             {
-                for (int j = 0; j < numCols; j++)
+                for (int j = 0; j < numCols; ++j)
                 {
                     GridNode n = Nodes[i, j];
                     n.InitNeighbors();
@@ -175,9 +175,9 @@ namespace Graphs
         /// </summary>
         private void BakeObstacles()
         {
-            for (int i = 0; i < numRows; i++)
+            for (int i = 0; i < numRows; ++i)
             {
-                for (int j = 0; j < numCols; j++)
+                for (int j = 0; j < numCols; ++j)
                 {
                     GridNode n = Nodes[i, j];
                     n.BakeObstacle();
@@ -279,9 +279,9 @@ namespace Graphs
             // calculate half the width of the line that represents the neighbor connections
             float lineWidthRadius = connectionsWidthFactor * nodeRadius;
 
-            for (int i = 0; i < numRows; i++)
+            for (int i = 0; i < numRows; ++i)
             {
-                for (int j = 0; j < numCols; j++)
+                for (int j = 0; j < numCols; ++j)
                 {
                     GridNode n = Nodes[i, j];
 
@@ -314,7 +314,7 @@ namespace Graphs
                     vertNodesIndex += 4;
 
                     // now we set up the connections to the neighbors
-                    for (int k = 0; k < n.Neighbors.Length; k++)
+                    for (int k = 0; k < n.Neighbors.Length; ++k)
                     {
                         GridNode neighbor = n.Neighbors[k];
 
