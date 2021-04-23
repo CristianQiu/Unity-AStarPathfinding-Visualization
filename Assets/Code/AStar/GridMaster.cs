@@ -32,27 +32,18 @@ namespace Graphs
 
         [Header("Grid configuration"), Range(MinNodeRadius, MaxNodeRadius), SerializeField]
         private float nodeRadius = 0.5f;
+        [Range(5, MaxRows)]
+        [SerializeField] private int numRows = 50;
+        [Range(5, MaxCols)]
+        [SerializeField] private int numCols = 50;
+        [SerializeField] private GridNeighboring neighboringType = GridNeighboring.FourNeighbors;
 
-        [Range(5, MaxRows), SerializeField]
-        private int numRows = 50;
-
-        [Range(5, MaxCols), SerializeField]
-        private int numCols = 50;
-
-        [SerializeField]
-        private GridNeighboring neighboringType = GridNeighboring.FourNeighbors;
-
-        [Header("Grid debug"), SerializeField]
-        private Color walkableNodeColor = new Color(0.0f, 0.0f, 0.0f, 192.0f / 255.0f);
-
-        [SerializeField]
-        private Color unwalkableNodeColor = new Color(1.0f, 0.0f, 0.0f, 192.0f / 255.5f);
-
-        [SerializeField]
-        private Color connectionsColor = Color.red;
-
-        [Range(0.01f, 0.1f), SerializeField]
-        private float connectionsWidthFactor = 0.02f;
+        [Header("Grid debug")]
+        [SerializeField] private Color walkableNodeColor = new Color(0.0f, 0.0f, 0.0f, 192.0f / 255.0f);
+        [SerializeField] private Color unwalkableNodeColor = new Color(1.0f, 0.0f, 0.0f, 192.0f / 255.5f);
+        [SerializeField] private Color connectionsColor = Color.red;
+        [Range(0.01f, 0.1f)]
+        [SerializeField] private float connectionsWidthFactor = 0.02f;
 
         private Camera cam = null;
 
@@ -61,7 +52,6 @@ namespace Graphs
         #region Properties
 
         protected override bool DestroyOnLoad { get { return true; } }
-
         public GridNode[,] Nodes { get; private set; } = null;
         public float NodeRadius { get { return nodeRadius; } }
         public float NodeDiameter { get { return nodeRadius * 2.0f; } }

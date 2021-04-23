@@ -17,7 +17,6 @@ namespace Graphs
         // the closer the relation (gCost / hCost) to 0, the more accurate, but less performant
         // path. On the contrary, the higher, the less accurate and more greedy, but more performant
         public static int hCostMultiplier = 1;
-
         public static int gCostMultiplier = 1;
 
         #endregion
